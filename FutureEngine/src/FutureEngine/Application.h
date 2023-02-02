@@ -2,7 +2,8 @@
 
 #include "Core.h"
 
-namespace FutureEngine {
+namespace FutureEngine 
+{
 	class FE_API Application
 	{
 	public:

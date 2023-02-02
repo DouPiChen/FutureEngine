@@ -18,6 +18,9 @@ project "FutureEngine"
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
+	pchheader "fepch.h"
+	pchsource "%{prj.name}/src/fepch.cpp"
+
 	files
 	{
 		"%{prj.name}/src/**.h",
@@ -27,7 +30,8 @@ project "FutureEngine"
 
 	includedirs
 	{
-		"%{prj.name}/ThirdParty/spdlog/include"
+		"%{prj.name}/ThirdParty/spdlog/include",
+		"%{prj.name}/src"
 	}
 
 	filter "system:windows"
@@ -43,7 +47,7 @@ project "FutureEngine"
 
 		postbuildcommands
 		{
-			{"{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/FutureSandbox"}
+			{"{COPY} %{cfg.buildtarget.relpath} ../bin/" ..outputdir.."/FutureSandbox"}
 		}
 
 	filter "configurations:Debug"
