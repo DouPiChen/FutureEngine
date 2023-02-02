@@ -27,7 +27,7 @@ project "FutureEngine"
 
 	includedirs
 	{
-		"%{prj.name}/vendor/spdlog/include"
+		"%{prj.name}/ThirdParty/spdlog/include"
 	}
 
 	filter "system:windows"
@@ -75,7 +75,7 @@ project "FutureSandbox"
 
 	includedirs
 	{
-		"FutureEngine/vendor/spdlog/include",
+		"FutureEngine/ThirdParty/spdlog/include",
 		"FutureEngine/src"
 	}
 

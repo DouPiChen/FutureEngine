@@ -6,7 +6,11 @@ extern FutureEngine::Application* FutureEngine::CreateApplication();
 
 int main(int argc, char** argv)
 {
-	printf("Welcome to FutureEngine!\n");
+
+	FutureEngine::Log::Init();
+	FE_CORE_ERROR("Engine initialized");
+	FE_INFO("APP initialized");
+
 	auto app = FutureEngine::CreateApplication();
 	app->Run();
 	delete app;
