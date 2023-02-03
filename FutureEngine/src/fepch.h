@@ -12,6 +12,9 @@
 #include <unordered_map>
 #include <unordered_set>
 
+#include "FutureEngine/Log.h"
+
+
 #ifdef FE_PLATFORM_WINDOWS
 	#include <Windows.h>
 #endif

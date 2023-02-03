@@ -1,6 +1,5 @@
 #pragma once
 
-
 #include "FutureEngine/Core.h"
 
 #define EVENT_CLASS_TYPE(type)\
@@ -51,24 +50,27 @@ namespace FutureEngine
 
 	class FE_API EventDispatcher
 	{
-		template<typename T>
-		using EventHandler = std::function<bool(T&)>;
-
 	public:
 		EventDispatcher(Event& e) :m_Event(e) {}
-		template<typename T>
-		void Dispatch(EventHandler<T> handler)
+
+		template<typename T, typename F>
+		bool Dispatch(const F& func)
 		{
-			if (m_Event.m_Handled)
-				return;
 			if (m_Event.GetEventType() == T::GetStaticType())
 			{
-				m_Event.m_Handled = handler(*(*T) & m_Event);
-				m_Event.m_Handled = true;
+				m_Event.m_Handled |= func(static_cast<T&>(m_Event));
+				return true;
 			}
+			return false;
 		}
+
 
 	private:
 		Event& m_Event;
 	};
+
+	inline std::ostream& operator<<(std::ostream& os, const Event& e)
+	{
+		return os << e.ToString();
+	}
 }

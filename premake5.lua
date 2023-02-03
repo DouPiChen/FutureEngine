@@ -10,13 +10,16 @@ workspace "FutureEngine"
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
+
+include "FutureEngine/ThirdParty"
+
 project "FutureEngine"
 	location "FutureEngine"
 	kind "SharedLib"
 	language "C++"
 
-	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
-	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+	targetdir ("bin/" .. outputdir )
+	objdir ("bin-int/" .. outputdir )
 
 	pchheader "fepch.h"
 	pchsource "%{prj.name}/src/fepch.cpp"
@@ -30,8 +33,15 @@ project "FutureEngine"
 
 	includedirs
 	{
+		"%{prj.name}/src",
 		"%{prj.name}/ThirdParty/spdlog/include",
-		"%{prj.name}/src"
+		"%{prj.name}/ThirdParty/GLFW/include"
+	}
+
+	links
+	{
+		"GLFW",
+		"opengl32.lib"
 	}
 
 	filter "system:windows"
@@ -47,7 +57,7 @@ project "FutureEngine"
 
 		postbuildcommands
 		{
-			{"{COPY} %{cfg.buildtarget.relpath} ../bin/" ..outputdir.."/FutureSandbox"}
+			("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir.. "/FutureSandbox")
 		}
 
 	filter "configurations:Debug"
@@ -67,8 +77,8 @@ project "FutureSandbox"
 	kind "ConsoleApp"
 	language "C++"
 
-	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
-	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+	targetdir ("bin/" .. outputdir )
+	objdir ("bin-int/" .. outputdir )
 
 	files
 	{

@@ -28,12 +28,11 @@ namespace FutureEngine
 	class FE_API MouseButtonEvent :public Event
 	{
 	public:
-		MouseButtonEvent(int button): m_Button(button) {}
 		inline int GetMouseButton() const { return m_Button; }
-		EVENT_CLASS_TYPE(MouseButton)
-		EVENT_CLASS_GET_CATEGORY(EventCategoryInput | EventCategoryMouseButton)
+		EVENT_CLASS_GET_CATEGORY(EventCategoryInput | EventCategoryMouse | EventCategoryMouseButton)
 
-	private:
+	protected:
+		MouseButtonEvent(int button) : m_Button(button) {}
 		int m_Button;
 	};
 
@@ -46,7 +45,21 @@ namespace FutureEngine
 		std::string ToString() const override
 		{
 			std::stringstream ss;
-			ss << "MouseButtonPressed";
+			ss << "MouseButtonPressed" << m_Button;
+			return ss.str();
+		}
+	};
+
+	class FE_API MouseButtonReleasedEvent :public MouseButtonEvent
+	{
+	public:
+		MouseButtonReleasedEvent(int button) : MouseButtonEvent(button) {}
+		EVENT_CLASS_TYPE(MouseButtonReleased)
+
+		std::string ToString() const override
+		{
+			std::stringstream ss;
+			ss << "MouseButtonReleased" << m_Button;
 			return ss.str();
 		}
 	};
