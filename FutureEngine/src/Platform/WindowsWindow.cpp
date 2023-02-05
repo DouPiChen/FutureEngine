@@ -4,6 +4,9 @@
 #include "FutureEngine/Event/KeyEvent.h"
 #include "FutureEngine/Event/MouseEvent.h"
 
+#include <glad/gl.h>
+#include <GLFW/glfw3.h>
+
 namespace FutureEngine
 {
 	static bool s_GLFWInitialized = false;
@@ -45,6 +48,11 @@ namespace FutureEngine
 
 		m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, props.Title.c_str(), nullptr, nullptr);
 		glfwMakeContextCurrent(m_Window);
+
+		int status = gladLoadGL(glfwGetProcAddress);
+		FE_CORE_ASSERT(status, "Failed to Initialize GLAD");
+		FE_CORE_TRACE("Loaded OpenGL {0}.{1}", GLAD_VERSION_MAJOR(status), GLAD_VERSION_MINOR(status));
+
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 		SetVSync(true);
 

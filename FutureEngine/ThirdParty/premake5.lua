@@ -1,3 +1,38 @@
+project "glad"
+	kind "StaticLib"
+	language "C"
+	staticruntime "off"
+
+	targetdir ("../../bin/" .. outputdir )
+	objdir ("../../bin-int/" .. outputdir )
+	
+	files
+	{
+		"%{prj.name}/include/glad/gl.h",
+		"%{prj.name}/include/KHR/khrplatform.h",
+		"%{prj.name}/src/gl.c"
+
+	}
+
+	includedirs
+	{
+		"%{prj.name}/include"
+	}
+
+	filter "configurations:Debug"
+		runtime "Debug"
+		symbols "on"
+
+	filter "configurations:Release"
+		runtime "Release"
+		optimize "on"
+
+	filter "configurations:Dist"
+		runtime "Release"
+		optimize "on"
+        symbols "off"
+
+
 project "GLFW"
 	kind "StaticLib"
 	language "C"

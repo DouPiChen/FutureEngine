@@ -2,7 +2,6 @@
 
 
 #include "FutureEngine/Application.h"
-#include "FutureEngine/Log.h"
-#include "FutureEngine/Event/Event.h"
+#include "FutureEngine/Layer.h"
 
 #include "FutureEngine/EntryPoint.h"

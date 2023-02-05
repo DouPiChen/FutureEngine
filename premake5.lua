@@ -35,11 +35,13 @@ project "FutureEngine"
 	{
 		"%{prj.name}/src",
 		"%{prj.name}/ThirdParty/spdlog/include",
+		"%{prj.name}/ThirdParty/glad/include",
 		"%{prj.name}/ThirdParty/GLFW/include"
 	}
 
 	links
 	{
+		"GLAD",
 		"GLFW",
 		"opengl32.lib"
 	}
@@ -55,21 +57,20 @@ project "FutureEngine"
 			"FE_BUILD_DLL"
 		}
 
-		postbuildcommands
-		{
-			("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir.. "/FutureSandbox")
-		}
 
 	filter "configurations:Debug"
 		defines "FE_DEBUG"
+		buildoptions "/MDd"
 		symbols "On"
 
 	filter "configurations:Release"
 		defines "FE_RELEASE"
+		buildoptions "/MD"
 		optimize "On"
 		
 	filter "configurations:Dist"
 		defines "FE_DIST"
+		buildoptions "/MD"
 		optimize "On"
 
 project "FutureSandbox"
@@ -110,13 +111,17 @@ project "FutureSandbox"
 
 	filter "configurations:Debug"
 		defines "FE_DEBUG"
+		buildoptions "/MDd"
 		symbols "On"
 
 	filter "configurations:Release"
 		defines "FE_RELEASE"
+		buildoptions "/MD"
 		optimize "On"
 		
 	filter "configurations:Dist"
 		defines "FE_DIST"
+		buildoptions "/MD"
 		optimize "On"
+
 		
